@@ -4,10 +4,11 @@ import {
   TableRow,
   TableHead,
   TableCell,
+  TableBody,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
-import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { useAppSelector } from "../app/hooks";
 import { selectUsers } from "../features/dashboard/usersSlice";
 import { User } from "./User";
 
@@ -16,11 +17,7 @@ export function UsersList() {
 
   return (
     <TableContainer>
-      <Table
-        sx={{ minWidTableHead: 750 }}
-        aria-labelledby="tableTitle"
-        size={"medium"}
-      >
+      <Table sx={{ minWidTableHead: 750 }} size={"medium"}>
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
@@ -32,9 +29,11 @@ export function UsersList() {
             <TableCell>Delete</TableCell>
           </TableRow>
         </TableHead>
-        {usersList.map((user) => (
-          <User key={user.id} user={user} />
-        ))}
+        <TableBody>
+          {usersList.map((user) => (
+            <User key={user.id} user={user} />
+          ))}
+        </TableBody>
       </Table>
     </TableContainer>
   );

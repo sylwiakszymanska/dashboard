@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 
-import { useAppDispatch } from "../../app/hooks";
-import { getUsers } from "./usersSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { getUsers, selectUsers } from "./usersSlice";
 import { UsersList } from "../../components/UsersList";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export function Users() {
   const dispatch = useAppDispatch();
+  const { usersList } = useAppSelector(selectUsers);
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getUsers());
+    if (!usersList.length) {
+      dispatch(getUsers());
+    }
   }, []);
 
   const handleAddNew = () => {
