@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
-import { RootState, AppThunk } from '../../app/store';
-import { fetchUsers } from './usersAPI';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { RootState, AppThunk } from "../../app/store";
+import { fetchUsers } from "./usersAPI";
 
 interface IGeo {
   lat: string;
@@ -34,26 +34,22 @@ export interface IUser {
 }
 
 export interface UsersState {
-  usersList: IUser[],
-    status: 'idle' | 'loading' | 'failed';
-};
+  usersList: IUser[];
+  status: "idle" | "loading" | "failed";
+}
 
 const initialState: UsersState = {
   usersList: [],
-  status: 'idle'
+  status: "idle",
 };
 
-export const getUsers = createAsyncThunk(
-  'users/fetchUsers',
-  async () => {
-    const response: IUser[] = await fetchUsers();
-    return response;
-  }
-);
-
+export const getUsers = createAsyncThunk("users/fetchUsers", async () => {
+  const response: IUser[] = await fetchUsers();
+  return response;
+});
 
 export const usersSlice = createSlice({
-  name: 'users',
+  name: "users",
   initialState,
   reducers: {
     setUsers: (state, action: PayloadAction<IUser[]>) => {
@@ -63,11 +59,15 @@ export const usersSlice = createSlice({
       state.usersList = state.usersList.concat(action.payload);
     },
     editUser: (state, action: PayloadAction<IUser>) => {
-      const index = state.usersList.findIndex(({id}) => id === action.payload.id); 
+      const index = state.usersList.findIndex(
+        ({ id }) => id === action.payload.id
+      );
       state.usersList[index] = { ...state.usersList[index], ...action.payload };
     },
     deleteUser: (state, action: PayloadAction<IUser>) => {
-      const filteredUsers = state.usersList.filter(user => user.id !== action.payload.id);
+      const filteredUsers = state.usersList.filter(
+        (user) => user.id !== action.payload.id
+      );
       state.usersList = filteredUsers;
     },
   },
@@ -76,15 +76,15 @@ export const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUsers.fulfilled, (state, action) => {
-        console.log(action.payload)
-      state.usersList = state.usersList.concat(action.payload)
-    })
+        console.log(action.payload);
+        state.usersList = action.payload;
+      })
       // .addCase(incrementAsync.fulfilled, (state, action) => {
       //   state.status = 'idle';
       //   state.value += action.payload;
       // })
       .addCase(getUsers.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       });
   },
 });

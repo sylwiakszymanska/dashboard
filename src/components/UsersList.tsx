@@ -1,26 +1,41 @@
-import React, { useState } from 'react';
+import {
+  TableContainer,
+  Table,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@mui/material";
+import React, { useState } from "react";
 
-import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { selectUsers } from '../features/dashboard/usersSlice';
-import { User } from './User';
-
+import { useAppSelector, useAppDispatch } from "../app/hooks";
+import { selectUsers } from "../features/dashboard/usersSlice";
+import { User } from "./User";
 
 export function UsersList() {
   const { usersList } = useAppSelector(selectUsers);
 
-
   return (
-    <table>
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Usernme</th>
-          <th>City</th>
-          <th>Email</th>
-          <th>Edit</th>
-          <th>Delete</th>
-        </tr>
-      {usersList.map(user => <User key={user.id} user={user} />)}
-    </table>
+    <TableContainer>
+      <Table
+        sx={{ minWidTableHead: 750 }}
+        aria-labelledby="tableTitle"
+        size={"medium"}
+      >
+        <TableHead>
+          <TableRow>
+            <TableCell>Id</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Usernme</TableCell>
+            <TableCell>City</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Edit</TableCell>
+            <TableCell>Delete</TableCell>
+          </TableRow>
+        </TableHead>
+        {usersList.map((user) => (
+          <User key={user.id} user={user} />
+        ))}
+      </Table>
+    </TableContainer>
   );
 }
