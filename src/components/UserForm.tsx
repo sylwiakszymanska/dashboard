@@ -3,7 +3,11 @@ import React, { FC } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { addUser, selectById } from "../features/dashboard/usersSlice";
+import {
+  editUser,
+  postUser,
+  selectById,
+} from "../features/dashboard/usersSlice";
 
 export const UserForm: FC = () => {
   const navigate = useNavigate();
@@ -22,7 +26,11 @@ export const UserForm: FC = () => {
   };
 
   const handleSubmitButton = handleSubmit((values) => {
-    dispatch(addUser({ ...values, id: Date.now() }));
+    if (id) {
+      dispatch(editUser({ ...values, id: Number(id) }));
+    } else {
+      dispatch(postUser({ ...values, id: Date.now() }));
+    }
     navigate("/");
   });
 

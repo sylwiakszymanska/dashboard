@@ -1,6 +1,5 @@
 import React from "react";
 import { Users } from "./features/dashboard/Users";
-import "./App.css";
 import { Routes, Route, Outlet } from "react-router-dom";
 import { Box, Paper, Typography } from "@mui/material";
 import { UserForm } from "./components/UserForm";
@@ -12,6 +11,7 @@ function Layout() {
         display: "flex",
         flexDirection: "column",
         backgroundColor: ({ palette }) => palette.grey[200],
+        minHeight: "100vh",
       }}
     >
       <Typography variant="h1" sx={{ textAlign: "center" }}>

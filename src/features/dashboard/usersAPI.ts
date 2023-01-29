@@ -7,7 +7,7 @@ export const fetchUsers = async () => {
   return response.json();
 };
 
-export const addUser = async (data: IUser) => {
+export const createUser = async (data: IUser) => {
   const response = await fetch(
     "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data",
     {
@@ -21,9 +21,9 @@ export const addUser = async (data: IUser) => {
   return response.json();
 };
 
-export const editUser = async (data: IUser) => {
+export const patchUser = async (data: IUser) => {
   const response = await fetch(
-    "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data",
+    `https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data/${data.id}`,
     {
       method: "PATCH",
       headers: {
@@ -35,9 +35,9 @@ export const editUser = async (data: IUser) => {
   return response.json();
 };
 
-export const deleteUser = async (id: number) => {
+export const removeUser = async (id: number) => {
   const response = await fetch(
-    "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data",
+    `https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data/${id}`,
     {
       method: "DELETE",
       headers: {
