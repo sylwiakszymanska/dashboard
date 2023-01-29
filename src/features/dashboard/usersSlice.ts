@@ -41,7 +41,7 @@ const initialState: UsersState = {
 };
 
 export const getUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response: IUser[] = await fetchUsers();
+  const response = (await fetchUsers()) as IUser[];
   return response;
 });
 
@@ -61,9 +61,9 @@ export const usersSlice = createSlice({
       );
       state.usersList[index] = { ...state.usersList[index], ...action.payload };
     },
-    deleteUser: (state, action: PayloadAction<IUser>) => {
+    deleteUser: (state, action: PayloadAction<number>) => {
       const filteredUsers = state.usersList.filter(
-        (user) => user.id !== action.payload.id
+        (user) => user.id !== action.payload
       );
       state.usersList = filteredUsers;
     },

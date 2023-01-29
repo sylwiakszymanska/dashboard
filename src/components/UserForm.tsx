@@ -11,10 +11,9 @@ export const UserForm: FC = () => {
   const initialFormData = { name: "", email: "" };
   const { id } = useParams();
   const userData = useAppSelector((state) => selectById(state, Number(id)));
-  console.log(id, userData);
 
   const { control, handleSubmit } = useForm({
-    defaultValues: initialFormData,
+    defaultValues: id ? userData : initialFormData,
     mode: "onChange",
   });
 

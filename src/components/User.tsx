@@ -37,7 +37,7 @@ export const User: FC<IProps> = ({ user }) => {
         <Button variant="contained" color="error" onClick={handleDeleteClick}>
           Delete
         </Button>
-        <UserDeleteDialog isOpen={isDialogOpen} user={user.name} />
+        <UserDeleteDialog isOpen={isDialogOpen} name={user.name} id={user.id} />
       </TableCell>
     </TableRow>
   );

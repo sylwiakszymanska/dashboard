@@ -1,3 +1,4 @@
+import React from "react";
 import {
   TableContainer,
   Table,
@@ -5,8 +6,8 @@ import {
   TableHead,
   TableCell,
   TableBody,
+  Typography,
 } from "@mui/material";
-import React from "react";
 
 import { useAppSelector } from "../app/hooks";
 import { selectUsers } from "../features/dashboard/usersSlice";
@@ -15,7 +16,9 @@ import { User } from "./User";
 export function UsersList() {
   const { usersList } = useAppSelector(selectUsers);
 
-  return (
+  return usersList.length === 0 ? (
+    <Typography>There are no users available</Typography>
+  ) : (
     <TableContainer>
       <Table sx={{ minWidTableHead: 750 }} size={"medium"}>
         <TableHead>
