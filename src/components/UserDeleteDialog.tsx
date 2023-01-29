@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import {
   Button,
   Dialog,
@@ -11,16 +11,21 @@ import { deleteUser } from "../features/dashboard/usersSlice";
 
 interface IProps {
   isOpen: boolean;
+  setIsOpen: (arg: boolean) => void;
   name: string;
   id: number;
 }
 
-export const UserDeleteDialog: FC<IProps> = ({ isOpen, name, id }) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
+export const UserDeleteDialog: FC<IProps> = ({
+  isOpen,
+  setIsOpen,
+  name,
+  id,
+}) => {
   const dispatch = useAppDispatch();
 
   const handleClose = () => {
-    setIsDialogOpen(false);
+    setIsOpen(false);
   };
 
   const handleDelete = () => {
@@ -29,7 +34,7 @@ export const UserDeleteDialog: FC<IProps> = ({ isOpen, name, id }) => {
   };
 
   return (
-    <Dialog open={isOpen && isDialogOpen} onClose={handleClose}>
+    <Dialog open={isOpen} onClose={handleClose}>
       <DialogTitle>Delete</DialogTitle>
       <DialogContent>{`Are you sure you want to delete user ${name}?`}</DialogContent>
       <DialogActions>
